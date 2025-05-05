@@ -6,7 +6,7 @@ import { Treemap } from '../components/Treemap';
 import styles from '../styles/Home.module.css';
 
 export async function getStaticProps() {
-  const response = await fetch('https://gist.githubusercontent.com/x11AC/c0b15e695934ebb367b3b19aa93d0dc6/raw/[some-hash]/Plane_Crashes_Selected.csv');
+  const response = await fetch('https://gist.githubusercontent.com/x11AC/c0b15e695934ebb367b3b19aa93d0dc6/raw/13d21609f09dbf76235ee5ee43d15d55dfb6e450/Plane%2520Crash_updated.csv');
   const csvData = await response.text();
 
   const { data } = Papa.parse(csvData, { header: true });
