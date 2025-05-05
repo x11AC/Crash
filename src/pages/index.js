@@ -6,7 +6,7 @@ import { Treemap } from '../components/Treemap';
 import styles from '../styles/Home.module.css';
 
 export async function getStaticProps() {
-  const response = await fetch('https://gist.githubusercontent.com/x11AC/c0b15e695934ebb367b3b19aa93d0dc6/raw/13d21609f09dbf76235ee5ee43d15d55dfb6e450/Plane%2520Crash_updated.csv');
+  const response = await fetch('https://gist.githubusercontent.com/x11AC/c0b15e695934ebb367b3b19aa93d0dc6/raw/[some-hash]/Plane_Crashes_Selected.csv');
   const csvData = await response.text();
 
   const { data } = Papa.parse(csvData, { header: true });
@@ -130,8 +130,11 @@ export default function Home({ stackedAreaData, treemapDefaultData, treemapInter
         <h3>Instructions:</h3>
         <p>
           - The <strong>Stacked Area Chart</strong> shows the number of crashes per year, grouped by cause.<br />
-          - Hover over <strong>the BLANK area</strong> between decade lines (e.g., 2010-2020) to see the total crashes for each cause in that decade.<br />
+          - Hover over the area between decade lines (e.g., 1920-1929) to see the total crashes for each cause in that decade.<br />
           - Click on a cause in the stacked area chart to view a treemap of crash locations for that cause.<br />
+          - The <strong>Treemap</strong> initially shows crashes by cause, split by survivors. After clicking a cause, it shows crash locations for that cause.<br />
+          - Hover over treemap nodes to see detailed information (crashes and fatalities).<br />
+          - Click the &quot;Reset Treemap&quot; button or select a different cause to change the treemap view.
         </p>
       </div>
       <div className={styles.chartContainer}>
@@ -144,15 +147,6 @@ export default function Home({ stackedAreaData, treemapDefaultData, treemapInter
           height={400}
         />
       </div>
-      <div className={styles.instructions}>
-        <h3>Instructions:</h3>
-        <p>
-        - The <strong>Treemap</strong> initially shows crashes by cause, split by survivors. After clicking a cause, it shows crash locations for that cause.<br />
-        - Each treemap node represents a location, with the size indicating the number of crashes and color indicating fatalities.<br />
-        - Hover over treemap nodes to see detailed information (crashes and fatalities).<br />
-        - Click the "Reset Treemap" button or select a different cause to change the treemap view.
-        </p>
-      </div>
       <div className={styles.chartContainer}>
         <h2>{treemapData.title}</h2>
         {selectedCause && !treemapInteractiveData[selectedCause] ? (
@@ -160,8 +154,8 @@ export default function Home({ stackedAreaData, treemapDefaultData, treemapInter
         ) : (
           <Treemap
             data={treemapData.data}
-            width={1000} // Increased from 800
-            height={800} // Increased from 600
+            width={1000}
+            height={800}
             showLegend={true}
             legendWidth={200}
             legendHeight={20}
